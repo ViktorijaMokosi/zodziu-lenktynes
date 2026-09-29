@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Žodžių lenktynės</title>
+<style>
+:root{font-family:Arial,system-ui,sans-serif;color:#f5f8fc;background:#102333}*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(circle at 20% 10%,#29536a,#102333 65%)}button{font:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible{outline:4px solid #ffdb66;outline-offset:3px}.hidden{display:none!important}#app{max-width:1200px;margin:auto;min-height:100svh;padding:12px;display:flex;flex-direction:column;gap:9px}h1{font-size:clamp(23px,3vw,38px);margin:0;text-align:center;letter-spacing:.02em}.sub{text-align:center;color:#cfe3ec;margin:0}.panel{background:#183246ee;border:1px solid #58829a;border-radius:20px;padding:16px;box-shadow:0 10px 24px #06131b70}.setup{max-width:800px;width:100%;margin:auto;text-align:center}.setup h2{margin:4px 0 16px}.cars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.car-choice{min-height:125px;border:3px solid #7297aa;border-radius:18px;background:linear-gradient(145deg,#305169,#203b50);color:white;font-size:20px;font-weight:bold;padding:10px}.car-choice:hover,.car-choice.selected{border-color:#ffe166;background:#365e78}.car-choice svg{display:block;margin:auto auto 6px;width:140px;max-width:100%;height:69px}.primary{min-height:58px;padding:10px 25px;border:0;border-radius:16px;color:#15242d;font-weight:900;font-size:23px;background:linear-gradient(#ffe577,#ffaf28);box-shadow:0 5px 0 #a75a13}.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #a75a13}.primary:disabled{opacity:.5;cursor:default}#startButton{margin-top:18px}.game{flex:1;display:flex;flex-direction:column;min-height:0;gap:8px}.game-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.status{font-size:clamp(16px,2vw,22px);font-weight:bold}.board-wrap{flex:1;min-height:260px;position:relative;border-radius:18px;padding:14px;background:linear-gradient(140deg,#447958,#2d6145 60%,#346c4d);overflow:hidden;border:4px solid #7bb778}.scenery{position:absolute;inset:0;pointer-events:none;opacity:.7;background:repeating-linear-gradient(90deg,transparent 0 79px,#8fbd8266 80px 82px,transparent 84px 155px)}.building{position:absolute;background:linear-gradient(120deg,#aeb9bc,#607984);border:4px solid #344e59;box-shadow:6px 7px 0 #234633;border-radius:5px;transform:rotate(-8deg);width:55px;height:38px}.building:after{content:'▦ ▦';color:#d5e4ed;position:absolute;inset:5px;font-size:13px}.b1{top:2%;left:2%}.b2{bottom:3%;right:2%}.sign{position:absolute;right:3%;top:4%;border-radius:50%;background:#e9f6f1;border:5px solid #db3838;color:#162e38;font-weight:bold;width:40px;height:40px;text-align:center;line-height:30px}.track{position:absolute;inset:14px;display:grid;gap:2px;z-index:1;min-width:0;min-height:0}.cell{position:relative;min-width:0;min-height:0;background:linear-gradient(90deg,#273139 0 5%,#4a565e 7% 93%,#273139 95%);border:2px solid #d7d1a3;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;text-align:center;box-shadow:inset 0 0 15px #1b2931}.cell:before{content:'';position:absolute;left:8%;right:8%;top:50%;border-top:2px dashed #d8dec898;pointer-events:none}.cell.current{border:4px solid #ffda55;box-shadow:0 0 14px #ffe483}.cell.finish{background:repeating-conic-gradient(#e6e9e8 0 25%,#26333b 0 50%) 0 0/22px 22px}.cell.finish .word,.cell.finish .number{background:#162834dd;padding:1px 5px;border-radius:5px}.cell .number{position:absolute;top:3px;left:5px;font-size:clamp(11px,1.5vw,17px);font-weight:900;color:#fff}.cell .word{font-size:clamp(15px,2.1vw,27px);font-weight:900;text-shadow:1px 2px 2px #1a2630}.cell .flag{position:absolute;right:3px;top:2px;font-size:clamp(10px,1.5vw,17px);font-weight:900;background:#10374bdc;padding:2px;border-radius:4px}.token{position:absolute;width:clamp(43px,6vw,80px);height:clamp(27px,4vw,53px);z-index:4;transform:translate(-50%,-50%);filter:drop-shadow(3px 6px 3px #0009);transition:left .52s ease-in-out,top .52s ease-in-out;pointer-events:none}.token svg{width:100%;height:100%}.controls{display:flex;align-items:center;justify-content:center;gap:18px;background:#183246;border-radius:16px;padding:7px}.die{width:65px;height:65px;border-radius:12px;background:#f7fbfa;color:#172536;display:grid;place-items:center;font-size:45px;font-weight:900;box-shadow:inset 0 -5px #a6b3b7}.die.rolling{animation:shake .25s infinite}@keyframes shake{50%{transform:rotate(20deg) scale(1.08)}}.message{min-height:30px;text-align:center;font-weight:bold;color:#ffe477;font-size:18px}.overlay{position:fixed;inset:0;background:#06131dd9;z-index:10;display:flex;align-items:center;justify-content:center;padding:16px}.modal{background:linear-gradient(150deg,#264d66,#193343);border:3px solid #81b5c7;border-radius:24px;padding:24px;max-width:520px;width:100%;text-align:center;box-shadow:0 15px 55px #0009}.modal h2{margin:0 0 8px}.big-word{font-size:clamp(70px,15vw,130px);font-weight:900;color:#ffe16b;margin:12px 0 18px;line-height:1}.modal-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.secondary{min-height:58px;border:2px solid #9dcee3;background:#2c5a70;color:white;padding:10px 16px;border-radius:16px;font-size:21px;font-weight:bold}.help{min-height:24px;color:#e0edf2;margin:10px 0}.win-title{font-size:clamp(38px,9vw,72px);color:#ffe170;text-shadow:0 0 24px #ffc441;animation:celebrate .9s ease-in-out infinite alternate}@keyframes celebrate{to{transform:scale(1.07) rotate(2deg)}}.win-caption{font-size:clamp(21px,4vw,32px);font-weight:900;color:#fff;margin:8px 0}.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}.confetti i{position:absolute;top:-12%;left:var(--x);width:11px;height:23px;background:var(--c);opacity:.95;animation:fall var(--t) linear infinite;animation-delay:var(--d)}@keyframes fall{to{transform:translateY(115vh) rotate(900deg)}}.win-stars{font-size:29px;margin:15px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}@media(max-width:600px){#app{padding:7px;gap:5px}h1{font-size:23px}.sub{font-size:13px}.board-wrap{padding:7px;border-width:2px}.track{inset:7px}.track{gap:2px}.cell{border-width:1px;border-radius:5px}.cell:before{inset:3px;border-width:1px}.cell .word{font-size:clamp(14px,4vw,22px)}.cell .number{font-size:11px}.cell .flag{font-size:10px;top:auto;bottom:1px}.token{width:clamp(39px,10vw,55px);height:35px}.controls{padding:5px}.die{width:55px;height:55px;font-size:38px}.primary{min-height:52px;font-size:20px}.car-choice{min-height:112px;font-size:16px}.panel{padding:12px}}@media(max-height:640px){#app{padding:5px;gap:3px}h1{font-size:21px}.sub{display:none}.board-wrap{min-height:190px}.controls{padding:3px}.die{height:47px;width:47px;font-size:33px}.primary{min-height:45px}.message{min-height:22px;font-size:15px}}
+</style>
+</head>
+<body><div id="app"><h1>🏁 Žodžių lenktynės</h1><p class="sub">Perskaityk anglišką žodį ir pasiek finišą!</p>
+<section id="setup" class="panel setup"><h2>👤 1 ŽAIDĖJAS</h2><p>Pasirink transporto priemonę</p><div id="cars" class="cars"></div><button id="startButton" class="primary" disabled>PRADĖTI</button></section>
+<section id="game" class="game hidden"><div class="game-top"><span id="status" class="status">START</span></div><div class="board-wrap"><div class="scenery"></div><div class="building b1"></div><div class="building b2"></div><div class="sign">30</div><div id="track" class="track"></div><div id="token" class="token"></div></div><div class="controls"><div id="die" class="die" aria-label="Kauliukas">🎲</div><button id="rollButton" class="primary">🎲 MESTI</button></div><div id="message" class="message" role="status" aria-live="polite"></div></section></div>
+<div id="wordOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="wordTitle"><div class="modal"><h2 id="wordTitle">Perskaityk žodį</h2><div id="bigWord" class="big-word"></div><div class="modal-actions"><button id="micButton" class="secondary">🎤 KLAUSAU</button><button id="correctButton" class="secondary">✅ Teisingai</button></div><p id="wordHelp" class="help" role="status" aria-live="polite"></p></div></div>
+<div id="winOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle"><div id="confetti" class="confetti" aria-hidden="true"></div><div class="modal" style="position:relative;z-index:1"><h2 id="winTitle" class="win-title">🏆 YOU ARE THE WINNER!</h2><p class="win-caption">🎉 Sveikinu! Puikiai padirbėjai! 🎉</p><p id="finalStars" class="win-stars"></p><button id="againButton" class="primary">ŽAISTI DAR KARTĄ</button></div></div>
+<script>
+'use strict';
+// Visas žaidimas šiame faile. Nereikia serverio ar papildomų bibliotekų.
+const WORDS=['I','a','am','an','and','are','at','be','big','blue','but','can','come','do','down','for','go','good','he','here','in','is','it','like','little','look','me','my','no','not','on','one','play','red','run','said','see','she','so','the','this','to','up','we','what','where','who','will','with','you'];
+const VEHICLES=[{id:'monster',name:'Džipas monstras',color:'#8ace34',icon:'🚙'},{id:'police',name:'Policijos mašina',color:'#3789d4',icon:'🚓'},{id:'fire',name:'Gaisrinė',color:'#ed5143',icon:'🚒'},{id:'bike',name:'Motociklas',color:'#edbd36',icon:'🏍️'}];
+const $=id=>document.getElementById(id);
+let selected=null,vehicle=null,spaces=[],position=0,stars=0,phase='setup',recognition=null,taskId=0,audioCtx=null,resizeTimer=null,lastHeard='';
+const faces=['','⚀','⚁','⚂','⚃','⚄','⚅'];
+function vehicleSvg(v){let c=v.color;if(v.id==='bike')return `<svg viewBox="0 0 150 75" aria-hidden="true"><ellipse cx="75" cy="68" rx="65" ry="5" fill="#07101988"/><circle cx="37" cy="53" r="17" fill="#121c24" stroke="#b8c7ca" stroke-width="5"/><circle cx="113" cy="53" r="17" fill="#121c24" stroke="#b8c7ca" stroke-width="5"/><path d="M37 52 62 22 90 52 113 52 97 30 83 30" fill="none" stroke="${c}" stroke-width="10" stroke-linejoin="round"/><path d="M58 20h28l10 7H64z" fill="#23313a"/><path d="M108 31l10-17h15" fill="none" stroke="#ccd6d7" stroke-width="5"/><path d="M65 14h18" stroke="#161c21" stroke-width="8"/><circle cx="102" cy="16" r="12" fill="#e5e9ec"/><path d="M91 31q-12-14-29-9" stroke="#222f37" stroke-width="12" fill="none"/></svg>`;
+let tall=v.id==='monster',fire=v.id==='fire',police=v.id==='police';return `<svg viewBox="0 0 160 80" aria-hidden="true"><ellipse cx="80" cy="73" rx="74" ry="5" fill="#07101988"/><path d="M10 45 18 ${fire?22:35} H${fire?123:40} L${fire?128:58} ${fire?27:16} ${fire?145:143} 37 Q153 38 153 49 V61 H8 V50 Q8 46 10 45Z" fill="${c}" stroke="#182b35" stroke-width="3"/><path d="M45 34 57 17 H109 L128 36Z" fill="${fire?c:'#b9d7e7'}" stroke="#182b35" stroke-width="3"/><path d="M62 20h20v14H52zm25 0h19l14 14H87z" fill="#254a5b"/><path d="M12 44h18v9H12zm130 0h11v8h-11z" fill="#f9eeb8"/><path d="M38 38v15m82-15v15" stroke="#28414b" stroke-width="2"/><circle cx="39" cy="61" r="${tall?16:13}" fill="#111c23" stroke="#627985" stroke-width="5"/><circle cx="122" cy="61" r="${tall?16:13}" fill="#111c23" stroke="#627985" stroke-width="5"/>${police?'<rect x="70" y="10" width="29" height="7" rx="2" fill="#df3541"/><rect x="84" y="10" width="15" height="7" fill="#58b7ff"/><path d="M45 45h65" stroke="#eef5f7" stroke-width="7"/>':''}${fire?'<path d="M33 13h73m-60-5h65" stroke="#c5d0d0" stroke-width="5"/><rect x="12" y="25" width="18" height="9" fill="#e5eef0"/>':''}${tall?'<path d="M21 30h23m81 7h20" stroke="#ecf086" stroke-width="5"/>':''}</svg>`}
+function init(){for(const v of VEHICLES){const b=document.createElement('button');b.className='car-choice';b.innerHTML=vehicleSvg(v)+v.name;b.onclick=()=>{selected=v;document.querySelectorAll('.car-choice').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');$('startButton').disabled=false};$('cars').append(b)}$('startButton').onclick=startGame;$('rollButton').onclick=roll;$('micButton').onclick=()=>listen();$('correctButton').onclick=()=>resolveWord(true);$('againButton').onclick=()=>{stopRecognition();$('winOverlay').classList.add('hidden');$('game').classList.add('hidden');$('setup').classList.remove('hidden');phase='setup'};window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(layout,100)})}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startGame(){if(!selected)return;vehicle=selected;spaces=shuffle([...WORDS]).slice(0,22);position=0;stars=0;taskId++;phase='ready';$('setup').classList.add('hidden');$('game').classList.remove('hidden');$('message').textContent='Mesk kauliuką!';$('die').textContent='🎲';$('rollButton').disabled=false;$('token').innerHTML=vehicleSvg(vehicle);renderTrack();layout();tone(480,.08)}
+function renderTrack(){const track=$('track');track.innerHTML='';spaces.forEach((word,i)=>{let cell=document.createElement('div');cell.className='cell'+(i===21?' finish':'');cell.dataset.index=i+1;cell.innerHTML=`<span class="number">${i+1}</span><span class="word"></span>${i===21?'<span class="flag">🏁 FINISH</span>':''}`;cell.querySelector('.word').textContent=word;track.append(cell)});$('status').textContent='START → 🏁 22'}
+function layout(){if(phase==='setup')return;const track=$('track'),wide=track.clientWidth/Math.max(1,track.clientHeight)>1.12;const cols=wide?6:4;track.style.gridTemplateColumns=`repeat(${cols},minmax(0,1fr))`;track.style.gridTemplateRows=`repeat(${Math.ceil(22/cols)},minmax(0,1fr))`;[...track.children].forEach((el,i)=>{let row=Math.floor(i/cols),col=i%cols;el.style.gridRow=row+1;el.style.gridColumn=(row%2?cols-col:col+1)});placeToken(false)}
+function placeToken(animate=true){const target=position?$('track').querySelector(`[data-index="${position}"]`):$('track').querySelector('[data-index="1"]');if(!target)return;let board=$('track').parentElement,b=board.getBoundingClientRect(),r=target.getBoundingClientRect(),t=$('token');if(!animate)t.style.transition='none';t.style.left=`${r.left-b.left+(position?r.width*.52:r.width*.19)}px`;t.style.top=`${r.top-b.top+r.height*.68}px`;if(!animate)requestAnimationFrame(()=>t.style.transition='');document.querySelectorAll('.cell').forEach(x=>x.classList.toggle('current',Number(x.dataset.index)===position))}
+function pause(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+function enableSound(){try{audioCtx??=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
+function fanfare(){const notes=[392,523,659,784,659,784,1046];notes.forEach((n,i)=>setTimeout(()=>tone(n,i===6?.52:.23),i*230))}
+function makeConfetti(){const box=$('confetti');box.innerHTML='';for(let i=0;i<48;i++){let bit=document.createElement('i');bit.style.setProperty('--x',`${Math.random()*100}%`);bit.style.setProperty('--c',['#ffdc48','#f0628b','#77d8ff','#90e26a','#fff'][i%5]);bit.style.setProperty('--t',`${2.4+Math.random()*2}s`);bit.style.setProperty('--d',`${-Math.random()*5}s`);box.append(bit)}}
+function tone(freq,duration=.12){try{enableSound();if(!audioCtx)return;let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(.001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.13,audioCtx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration+.02)}catch(e){}}
+function speak(text,lang='en-US'){return new Promise(resolve=>{if(!('speechSynthesis'in window)){resolve();return}let done=false,finish=()=>{if(!done){done=true;resolve()}};try{speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.85;u.onend=finish;u.onerror=finish;speechSynthesis.speak(u);setTimeout(finish,Math.max(2200,text.length*270))}catch(e){finish()}})}
+async function roll(){if(phase!=='ready')return;enableSound();phase='rolling';$('rollButton').disabled=true;$('die').classList.add('rolling');$('message').textContent='Kauliukas sukasi…';for(let i=0;i<8;i++){$('die').textContent=faces[1+Math.floor(Math.random()*6)];tone(350+i*30,.035);await pause(130+i*28)}const number=1+Math.floor(Math.random()*6);$('die').classList.remove('rolling');$('die').textContent=faces[number];$('die').setAttribute('aria-label',`Iškrito ${number}`);$('message').textContent=`Iškrito ${number}`;await speak(String(number));phase='moving';let destination=Math.min(22,position+number);while(position<destination){position++;placeToken();tone(280+position*12,.06);await pause(620)}$('status').textContent=`Langelyje ${position} iš 22`;await pause(260);showWord()}
+function showWord(){phase='word';lastHeard='';$('micButton').textContent='🎤 KLAUSAU';$('bigWord').textContent=spaces[position-1];$('wordHelp').textContent='Paspausk mikrofoną ir perskaityk žodį.';$('micButton').disabled=false;$('wordOverlay').classList.remove('hidden');$('micButton').focus()}
+function normalize(s){return s.toLocaleLowerCase('en-US').replace(/[^a-z]/g,'')}
+// Kai kuriuos trumpus žodžius kalbos atpažintuvas užrašo pagal skambesį.
+const SOUND_ALIASES={I:['eye'],a:['uh'],be:['bee'],see:['sea'],one:['won'],are:['r'],you:['u'],for:['four'],to:['two','too'],no:['know'],here:['hear'],where:['wear','were'],he:['hee']};
+function oneLetterAway(a,b){if(a.length<5||b.length<5||Math.abs(a.length-b.length)>1)return false;let i=0,j=0,edits=0;while(i<a.length&&j<b.length){if(a[i]===b[j]){i++;j++;continue}if(++edits>1)return false;if(a.length>b.length)i++;else if(b.length>a.length)j++;else{i++;j++}}return edits+(a.length-i)+(b.length-j)<=1}
+function matchesWord(target,alternatives){const expected=normalize(target);return alternatives.some(raw=>{const heard=normalize(raw);return heard===expected||(SOUND_ALIASES[target]||[]).includes(heard)||oneLetterAway(heard,expected)})}
+function stopRecognition(){if(recognition){let old=recognition;recognition=null;old.onresult=old.onerror=old.onend=null;try{old.abort()}catch(e){}}}
+function listen(attempt=0){
+ if(phase!=='word')return;
+ enableSound();
+ // Nutraukiame dar kalbantį įgarsinimą, kad jis neužgožtų vaiko balso.
+ try{window.speechSynthesis?.cancel()}catch(e){}
+ const C=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!C){$('wordHelp').textContent='Šioje naršyklėje balso atpažinimas neveikia. Atidaryk žaidimą tiesiogiai Chrome arba Safari skirtuke.';return}
+ stopRecognition();
+ let r,settled=false,timer,startedAt=Date.now(),errorReason=null;
+ const id=taskId;
+ function reset(message){
+   if(settled||phase!=='word'||taskId!==id)return;
+   settled=true;clearTimeout(timer);stopRecognition();
+   $('micButton').disabled=false;$('micButton').textContent='🎤 BANDYTI DAR KARTĄ';
+   $('wordHelp').textContent=message;
+ }
+ try{
+   r=new C();recognition=r;r.lang='en-US';r.interimResults=false;r.maxAlternatives=5;r.continuous=false;
+   $('micButton').disabled=true;$('micButton').textContent='🎤 KLAUSAU…';
+   $('wordHelp').textContent='Įjungiu mikrofoną…';
+   r.onstart=()=>{if(!settled&&phase==='word')$('wordHelp').textContent='Klausau… dabar garsiai perskaityk žodį.'};
+   r.onresult=e=>{
+     if(settled||phase!=='word'||taskId!==id)return;
+     const result=e.results?.[0];
+     if(!result?.length){reset('Nepavyko išgirsti. Bandyk dar kartą.');return}
+     const alternatives=Array.from(result,x=>x.transcript||'');
+     lastHeard=alternatives[0]||'';
+     settled=true;clearTimeout(timer);stopRecognition();
+     $('micButton').textContent='🎤 KLAUSAU';
+     resolveWord(matchesWord(spaces[position-1],alternatives));
+   };
+   r.onerror=e=>{
+     const reason=e.error;errorReason=reason;
+     reset(reason==='not-allowed'||reason==='service-not-allowed'
+       ?'Mikrofonas užblokuotas. Leisk jį šios svetainės nustatymuose ir atidaryk žaidimą tiesioginiame skirtuke.'
+       :reason==='audio-capture'
+       ?'Nerastas veikiantis mikrofonas. Patikrink įrenginio mikrofoną.'
+       :reason==='network'
+       ?'Balso atpažinimo paslauga nepasiekiama. Patikrink internetą ir bandyk dar kartą.'
+       :'Nepavyko išgirsti. Bandyk dar kartą arba tėvai gali paspausti „Teisingai“.');
+   };
+   r.onend=()=>{
+     if(settled||phase!=='word'||taskId!==id)return;
+     if(!errorReason&&attempt===0&&Date.now()-startedAt<1800){
+       settled=true;clearTimeout(timer);stopRecognition();
+       $('wordHelp').textContent='Mikrofonas išsijungė. Įjungiu dar kartą…';
+       setTimeout(()=>{if(phase==='word'&&taskId===id)listen(1)},400);
+     }else reset('Naršyklė išjungė klausymą. Atidaryk žaidimą tiesioginiame Chrome arba Safari skirtuke ir patikrink mikrofono leidimą.');
+   };
+   r.start();
+   timer=setTimeout(()=>reset('Mikrofonas neatsakė. Bandyk dar kartą arba tėvai gali paspausti „Teisingai“.'),12000);
+ }catch(e){reset('Nepavyko įjungti mikrofono. Atidaryk žaidimą tiesioginiame naršyklės skirtuke ir bandyk dar kartą.')}
+}
+async function resolveWord(correct){
+ if(phase!=='word'&&phase!=='correction')return;
+ const wasCorrection=phase==='correction';
+ stopRecognition();taskId++;
+ phase='feedback';$('micButton').disabled=true;
+ let word=spaces[position-1];
+ if(correct){
+   stars++;$('correctButton').disabled=true;$('wordHelp').textContent=lastHeard?`⭐ Great! Išgirdau: „${lastHeard}“.`: '⭐ Great!';
+   tone(660,.15);setTimeout(()=>tone(880,.18),140);
+   await speak('Great, let’s go!');
+ }else{
+   phase='correction';$('wordHelp').textContent=`Paklausyk: ${word}. Jei perskaitei teisingai, tėvai gali paspausti „Teisingai“.`;
+   await speak(word);
+   if(phase!=='correction')return;
+   await pause(5500);
+   if(phase!=='correction')return;
+   phase='feedback';$('correctButton').disabled=true;
+ }
+ await pause(correct?500:100);
+ if(phase!=='feedback')return;
+ $('wordOverlay').classList.add('hidden');$('correctButton').disabled=false;
+ if(position===22){
+   phase='won';$('finalStars').textContent=`⭐ Surinkta žvaigždučių: ${stars}`;
+   $('winOverlay').classList.remove('hidden');makeConfetti();fanfare();
+   await pause(1500);await speak('You are the winner! Congratulations! Great job!');
+ }else{
+   phase='ready';$('rollButton').disabled=false;
+   $('message').textContent=correct?'⭐ Great!':'Mesk kauliuką ir tęsk lenktynes!';
+ }
+}
+
+init();
+</script></body></html>
